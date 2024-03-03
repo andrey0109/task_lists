@@ -4,7 +4,7 @@
     <ul>
       <li v-for="task in tasks" :key="task.id">
         {{ task.name }}
-        <button @click="editTask(task)">Редактировать</button>
+        <button @click="editTask(task.id)">Редактировать</button>
         <button @click="deleteTask(task.id)">Удалить</button>
       </li>
     </ul>
@@ -53,9 +53,11 @@ export default {
       this.editingTask = null;
       this.saveTasks();
     },
-    editTask(task) {
-      this.editingTask = task;
-      this.editingTaskName = task.name;
+    editTask(taskId) {
+      const findTask = this.tasks.find((item) => item.id === taskId);
+      if (!findTask) return;
+      this.editingTask = findTask;
+      this.editingTaskName = findTask.name;
     },
     saveEditedTask() {
       if (!this.editingTaskName.trim()) return;
