@@ -36,7 +36,6 @@ export default {
   },
   created() {
     this.tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    this.saveTasks();
   },
   methods: {
     addTask() {

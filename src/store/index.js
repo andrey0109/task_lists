@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 export default createStore({
-  state: { tasks: [] },
+  state: { tasks: localStorage.getItem("tasks") || [] },
   mutations: {
     addTask(e, t) {
       e.tasks.push(t);
