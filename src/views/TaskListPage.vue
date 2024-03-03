@@ -1,19 +1,23 @@
 <template>
   <div id="tasks">
     <h2>Список задач</h2>
-    <ul>
-      <li v-for="task in tasks" :key="task.id">
-        {{ task.name }}
-        <button @click="editTask(task.id)">Редактировать</button>
-        <button @click="deleteTask(task.id)">Удалить</button>
-      </li>
-    </ul>
-
     <form @submit.prevent="addTask">
       <label for="taskName">Название задачи:</label>
       <input type="text" id="taskName" v-model="newTaskName" />
       <button type="submit">Добавить задачу</button>
     </form>
+
+    <ul>
+      <li v-for="task in tasks" :key="task.id">
+        {{ task.name }}
+        <div>
+          <button @click="editTask(task.id)">Редактировать</button>
+          <button @click="deleteTask(task.id)" id="remove_button">
+            Удалить
+          </button>
+        </div>
+      </li>
+    </ul>
 
     <div v-if="editingTask">
       <h3>Редактирование задачи</h3>
@@ -77,6 +81,7 @@ export default {
   background-image: url("../assets/background1.jpg");
   background-size: cover;
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,25 +97,31 @@ h2 {
 label {
   color: white;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  padding-right: 20px;
-  font-size: 2rem;
+  font-size: 24px;
   font-weight: 500;
 }
 form {
+  width: 100%;
+  max-width: 768px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 16px;
 }
 
 input {
   border-radius: 20px;
   height: 40px;
-  width: 200px;
+  width: 300px;
+  flex-grow: 1;
   text-align: center;
 }
 
+#remove_button {
+  background: red;
+}
+
 button {
-  height: 45px;
-  margin-left: 10px;
   text-align: center;
   font-size: 1rem;
   color: white;
@@ -124,20 +135,39 @@ button {
 
 button:hover {
   transform-origin: center;
-  transform: scale(1.1);
-  transition: 1s;
+  transform: scale(1.05);
+  transition: 0.3s ease-in-out;
   background-color: rgb(0, 0, 0);
 }
 
 ul {
+  width: 100%;
+  max-width: 768px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   height: max-content;
   border-radius: 20px;
   background-color: aliceblue;
   list-style: none;
+  padding: 16px;
 }
 
 li {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  align-items: center;
   font-size: 1.5rem;
+}
+
+li > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 h3 {
